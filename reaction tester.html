@@ -1,0 +1,140 @@
+<html>
+		
+	<head>
+		<style type="text/css"> 
+		
+		#shape{
+					width:200px;
+					height:200px;
+					background-color:cyan;
+					position:relative;															/* To move the shapes relatively */
+					top:100px;
+					left:30px;
+					display:none;																
+					border:2px solid black; 
+					}
+					
+				#text{
+					font-size:140%;
+					font-weight:600;
+					font-family:"Times New Roman",arial,verdana;
+					padding:4px;
+					word-spacing:3px;
+					border:5px solid #FEDCBA;
+					}
+					
+		</style>
+		
+		<title>
+		Reaction Tester
+		</title>
+		
+	</head>
+	<body>
+		
+		<h1>Test your reactions</h1>
+		<p style="font-size:150%;"> Click on the Shapes as fastly as you can </p>
+		<p id="text">Time Taken is : <span id="time"><span> </p>
+		
+		<div id="shape"></div>
+
+
+	 	
+		<script type="text/javascript">
+			
+			var start = new Date().getTime();
+			
+			function randomColor()
+			{
+				var  letters="0123456789ABCDEF".split('');
+				var color = "#";
+				for( var i = 0 ; i < 6 ; i++ )
+				{
+					color += letters[Math.floor(Math.random() * 16 )];
+				}
+				return color;
+			}
+						
+			function shapereturns()
+			{	
+				var top = Math.random() * 550;
+				var left = Math.random() * 550;
+				var width = (Math.random() * 180)+ 100;
+				/* Alternate to add a random color limited to coder's choice :
+				var color = ["#ABCDEF","#FEDCBA","#a9a9a9","blue","khaki","cyan","yellow","pink","#ff0000","#00ff00","#c4a519","#a1ff01","#223391","#123456"];
+				document.getElementById("shape").style.backgroundColor = color[Math.floor(Math.random() * (color.length) )];          */
+				if(Math.random() > 0.67)
+				{
+					document.getElementById("shape").style.borderRadius = "50%" ;
+				}
+				else
+				{
+					document.getElementById("shape").style.borderRadius = "0%" ;
+				}
+				document.getElementById("shape").style.backgroundColor = randomColor();
+				document.getElementById("shape").style.display = "block";
+				document.getElementById("shape").style.top= top + "px" ;
+				document.getElementById("shape").style.left= left + "px" ;
+				document.getElementById("shape").style.width= width + "px" ;
+				if( Math.random() < 0.34 )
+				{
+					var height = (Math.random() * 180)+ 100;
+					document.getElementById("shape").style.height = height + "px";
+					
+				}
+				else
+				{
+					document.getElementById("shape").style.height= width + "px";
+				}
+				start=new Date().getTime(); 
+			}
+			
+			function timeToComeBack()
+			{
+				setTimeout(shapereturns, Math.random() * 2500);
+			} 
+			
+			timeToComeBack();
+			
+			document.getElementById("shape").onclick = function()
+			{
+						
+				document.getElementById("shape").style.display="none";
+				var end = new Date().getTime();
+				var timetaken= (end - start)/1000;
+				document.getElementById("time").innerHTML = timetaken + " seconds";
+				timeToComeBack();
+		
+			}
+			
+			
+		
+		</script>
+	
+	</body>
+	</html> 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

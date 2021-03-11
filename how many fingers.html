@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<style type="text/css">
+		
+			
+		
+		</style>
+		
+		
+		<title>
+		How many Fingers
+		</title>
+		
+	</head>
+	<body>
+			<p>How mmany fingers am i holding?</p>
+			<input type="number" title="A nuber between 0 to 5" size="1" id="fingers">
+			<button id="butt">Sure?</button>
+					
+
+		
+		<script type="text/javascript">
+			
+			
+			document.getElementById("butt").onclick=function()
+			{	var finger="";
+				finger=document.getElementById("fingers").value;
+				var guess=Math.floor(Math.random()*6);
+				if(finger==guess)
+				{ 
+						alert("You got it all right"); 
+							}
+							
+				
+							
+				else
+				{ 
+						alert("nooo there were "+guess+" fingers");
+							}
+			}
+			
+				
+		</script>
+	
+	</body>
+	</html> 

@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>	Content Counter	</title>
+		
+		<meta name="charset" content="UTF-8">
+		<meta name="author" content="Amar Sinha">
+		<meta name="description" content="Building Web Page fom Scratch">
+		<meta http-equiv="refresh" content="300">
+		<meta name="keywords" content="JavaScript">
+		
+		<style type="text/css">
+			textarea{
+				width:400px;
+				height:100px;
+				}
+		
+		</style>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+		
+		</script>
+		
+	</head>
+	
+	<body>
+	
+		<div>
+			<textarea class="txtLimits">
+			
+			
+			</textarea>
+			<div class="output">
+			
+	
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			
+			const output= document.querySelector(".output");
+			const txt= document.querySelector("textarea");
+			
+			/* txt.addEventListener("change",textCounter);
+			txt.addEventListener("keyup",textCounter);
+			txt.addEventListener("keydown",textCounter);  */
+			
+			["keyup","keydown","change"].forEach(function(e){
+				txt.addEventListener(e,textCounter);
+				});
+			
+			const max=30;
+			const warn=20;
+			
+			function textCounter(e){
+				console.log(e);
+				let count = txt.value.length;
+				if(count>max){
+					console.log(txt.value.substring(0,max));
+					txt.value = txt.value.substring(0,max);
+				}
+				if(count>warn){
+					output.innerHTML=(max-count) + " Characters left . ";
+					if((max-count)<6){
+						output.style.color="red";
+					}
+					else{
+						output.style.color="black";
+					}
+				}
+				else{
+					output.innerHTML="";
+				}
+				console.log(count);
+			}
+		    
+		</script>
+	</body>
+	
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

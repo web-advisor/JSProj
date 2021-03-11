@@ -1,0 +1,196 @@
+<html>
+	<head>
+		<title>	Text Scroller	</title>
+		
+		<meta name="charset" content="UTF-8">
+		<meta name="author" content="Amar Sinha">
+		<meta name="description" content="Building Web Page fom Scratch">
+		<meta http-equiv="refresh" content="300">
+		<meta name="keywords" content="JavaScript">
+		
+		<style type="text/css">
+			#contain{
+				background-color:aliceblue;
+				width:400px;
+				font-size:1em;
+				border:3px double black;
+				position:relative;
+				overflow:hidden;	
+				}
+			#select{
+				position:absolute;
+				left:0px;
+				top:0px;
+				width:100%;
+				}
+			
+		
+		</style>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+		
+		</script>
+		
+	</head>
+	
+	<body>
+	
+		<div>
+			<label for="speed">You can Increase the speed here !</label>
+			<input id="speed" type="number" value="5">
+			<br><br>
+			<div class="output"></div>
+			
+			<div id="contain">
+			
+				<div id="select"></div>
+				
+			</div>			
+			<br>
+			<button id="butt">Click to toggle scrolling </button>
+		
+		</div>
+		
+		<script type="text/javascript">
+			const b=document.getElementById("butt");
+			const c=document.getElementById("contain");
+			const s=document.getElementById("select");
+			const a=document.querySelector(".output");
+			const i=document.querySelector("input");
+			const txt="<h2> Leave Out All the Rest </h2><p> I dreamed I was Misssing You were so scared but no one would listen 'cause no one else cared after my dreaming i woke with thus fear What am i leaving when i am done here soo if you are asking me  i want you to know ... When my time comes forget the wrong that i have done help me leave baheinnd some  reasons to missed dont resent me aand when you are feeling Empty just keep me in your memory and leave out all the Rest Leave out all the Rest !! </p><h2>In the End</h2><p>It Starts With....One thing idk why it doesnt even matter how hard you try Just keep that in mind I designed this rhyme to explain in due time All i Know.. I tried so hard and got so far but in the End it doesnt even matter I triedd sso hard to lose it all but iN the End it Doesn't even Matter Ohhh .. I put my trust in you pushed as far as i can go but for all this there is only one thing you should know is that put my trust in you pushed as far as I can Go but for all this there is only one thing you should knowwwwoowowow that i tried so hard and got so far but in the end it doesnt even metter !!!</p><h2>Numb</h2><p>I am tired of things that you want me to be feeling so faithless Dont know what you were expecting from me put under the pressure i am walking in your shoessss Caught in the underdog just caught in the underdog ..every step that i take is another mistake to you and every second i waste is more than i can takeeee I have become so Numb i cant feel you there so tired so much more aware i becoming this all i want to do is be more like me and be less like you ..And i know You  are just like me someone dissapointed in youuu </p><h2>Love</h2>Its been a long time coming coming<br>Seeming like we all been running running <br>feeling like the Wild west gunning gunning<br>listen to our elders shunning shunning<br>flipping on the news be talking talking <br>all about the problems shocking shocking <br>We put our headphones walking walking <br>We put on our headphones <br>Where did we all go wrong ?<br> Love love love love love<br> lolololove love love<br> lolololove love love <br>lolololove love love <br>Where did we all where did we all go Wrong ??</p><br> ";		
+			let scroller=true;           //scroller controls the scrolling : to scroll or not to scroll
+			   
+			b.onclick=function(){
+				scroller ^= true;      //toggles between true and false
+			}
+			
+			c.addEventListener("mouseenter",scrollSpeed);
+			c.addEventListener("mouseleave",scrollSpeed);
+			
+			function scrollSpeed(e){ 
+				scroller = (e.type=="mouseenter")?false:true;
+				a.innerHTML="Scrolling Stopper";
+			}
+			
+			
+			//To be performed when the page loads
+			window.onload=setupScroll;    //declared Function to be performed when the page loads
+			
+			function setupScroll(){
+				s.innerHTML=txt;
+				let temp=s.getBoundingClientRect();		//Selecting bounding blocks : getBoundingClientRect()--> returnds size of an element and it's position relative to the viewport .Properties : x,y,top,bottom,left,right,width,height
+				c.style.height = temp.height/2 +"px";
+				s.style.top = temp.height + "px";
+				scrollInt=setInterval(scrollingElmt,50);  //function(scrollingElmt) calling and interval in which we want the calling to be made in ms
+			}
+ 			
+			function scrollingElmt(){
+				var scrollSpeed=i.value;                    //setting value for scrolling speed as the value of Input field
+				if(scroller){							//scroll until scroller is true
+					var posY=parseInt(s.style.top);		   //getting initial value of top positon
+					if(posY + s.clientHeight > 0){					//condition to let the DIV scroll or catch it
+						s.style.top = posY - scrollSpeed + "px";       //scrolls down by chhanging the absolute top position of the DIV
+					}
+					else{
+						s.style.top = c.clientHeight + "px";		//height resets and thus txt scrolls again from bottom as it goes up
+					}
+				}
+				a.innerHTML = "Scrolling Speed : "+ scrollSpeed +" Y Position : "+ posY;
+			}
+
+
+			
+		</script>
+	</body>
+	
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

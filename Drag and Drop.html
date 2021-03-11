@@ -1,0 +1,268 @@
+<html>
+	<head>
+		<title>Drag And Drop</title>
+		
+		<meta name="charset" content="UTF-8">
+		<meta name="author" content="Amar Sinha">
+		<meta name="description" content="Building Web Page fom Scratch">
+		<meta http-equiv="refresh" content="300">
+		<meta name="keywords" content="JavaScript">
+		
+		<style type="text/css">
+			
+			body{
+				margin:20px;
+				padding:20px;
+			}
+			.copy{
+				display:inline-block;
+				padding:18px;
+				border:double 2px black;      /* Don't give Margin to the DIVs Margins make DIVs undraggable   */
+				width:100px;
+				height:50px;
+				font-size:140%;
+				text-align:center;				
+				font-family:Verdana;
+				font-weight:900;
+				cursor:pointer;
+				position:absolute;
+				}  
+		
+				
+			.newStyle{
+				color:red;
+				}
+				
+			#garbage{
+				background-color:black;
+				color:white;
+				font-weight:900;
+				font-size:140%;
+				text-align:center;
+				width:250px;
+				height:200px;
+				position:absolute;
+				left:1000px;
+				top:400px;
+			}
+				
+			
+		
+		</style>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+		
+		</script>
+		
+	</head>
+	
+	<body>
+		
+		<h1>Drag And Drop to form Name of a Song</h1>
+		<div class="copy">Little  </div>
+		<div class="copy">Give </div>
+		<div class="copy">You </div>
+		<div class="copy">Things </div>
+		<div class="copy">Away</div>
+		<div id="garbage"><h1>GARBAGE</h1>Drag Unnecessary Blocks Here</div>
+		
+		<script type="text/javascript">
+			
+			const elmt = document.querySelectorAll(".copy");
+			const gar = document.getElementById("garbage");
+			/* Random Color Generator */
+			function color(){
+				var colors="#";
+				var letters="0123456789ABCDEF".split('');
+				for(var i=0;i<6;i++){
+					colors += letters[Math.floor(Math.random()*16)];
+				}
+				return colors;
+			}
+		
+			/* Generating Copies of a DIV */
+			let holder={};                                  //a variable to hold copied content 
+			elmt.forEach(function(ele,ind){
+		
+				ele.onclick=function(e){
+					holder.obj = ele.cloneNode(true);					//duplicates thee node on which method was called --> It copies the whole block of referenced code	 
+					holder.obj.style.cursor="move";
+					holder.obj.classList.add("newStyle");
+					holder.obj.style.backgroundColor = color();
+					holder.obj.style.left = ele.offsetLeft + "px";
+					holder.obj.style.top = (ele.offsetTop + 200) + "px";
+					
+					holder.obj.startX = ele.offsetLeft;								//setting initial values for horizontal and vertical values of copied DIV 
+					holder.obj.startY = ele.offsetTop;								//as equal to the clicked original DIV
+					
+					holder.obj.moves = Math.floor(Math.random() * 25);				//for moving the DIVs randomly
+					holder.obj.int = setInterval(mover,25);							//mover() to be called every 25ms os a movement is felt
+					
+					function mover(){
+						if(holder.obj.moves <= 0){
+							clearInterval(holder.obj.int);							//stopping the position updation when the variable moves hits <=0
+						}
+						else{
+							holder.obj.moves--;										//changing the values for position with  each iteration
+							
+							holder.obj.startY += 10;
+							holder.obj.startX += 1;
+							
+							holder.obj.style.top = holder.obj.startY + "px";
+							holder.obj.style.left = holder.obj.startX + "px";
+						}
+					}
+					document.body.appendChild(holder.obj);             //add the code contained in holder.obj to the body of the document
+					dragger(holder.obj);								//function meant to make the copied DIVs draggable
+				};
+				ele.style.left = ind * 180 + "px";
+			});   
+			
+			
+			
+		/* Making Draggable DIV */
+			function dragger(el){
+				let pos={};				//variable to hold position information
+				el.onmousedown = dragMouse;		//invoking dragMouse when mouse presses over an area
+				
+				function dragMouse(e){
+					 pos.nx = e.clientX;			//Gives the X coordinate of the point over DIV at which mouse was pressed 
+			         pos.ny = e.clientY;			//Gives the Y coordinate of the point over DIV at which mouse was pressed considering lleft topmost position as the origin 
+				
+					/* When mouse is released from after pressing */
+					document.onmouseup = function(){            
+						document.onmouseup = null;			//No interference assurance
+						document.onmousemove = null;
+					}
+					document.onmousemove = function(e){
+					    pos.ox = pos.nx - e.clientX; //amount to move horizontal
+						pos.oy = pos.ny - e.clientY; //amount to move vertical
+						
+						pos.nx = e.clientX;
+						pos.ny = e.clientY;
+						
+						/* For colision detection */
+						if(collision(el)){
+							
+						} 
+						else{
+							el.onmousedown = null;
+							el.parentElement.removeChild(el);      	//removing the DIV dragged over garbage 
+						}
+					
+						el.style.top = (el.offsetTop - pos.oy) + "px";
+						el.style.left = (el.offsetLeft - pos.ox) + "px";
+					}
+				}
+			}
+			
+			/* Function to eliminate the DIVs dragged over garbage */
+			function collision(a){			//aim is to compare coordinates of the Garbage DIV and the dragged DIV . Garbage DIV is selected through id while dragged DIV is selected through function local variable 'a' referring to the clicked DIV 
+				let drag = a.getBoundingClientRect();    //Gives geometric information of the dragged DIV
+				let garb = gar.getBoundingClientRect();    //Gives geometric information ofthe Garbage DIV
+
+				/* Checking Overlapping */
+				return (
+					(drag.bottom < garb.top) || (drag.top > garb.bottom) || (drag.right < garb.left) || (drag.left > garb.right) 
+				)
+			}
+			
+					
+			
+	    
+			
+			
+		</script>
+	</body>
+	
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
